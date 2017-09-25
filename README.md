@@ -1,5 +1,3 @@
-# tru-workshop
-web maping workshop for tru-gis
-# this is TODO
+# TODO
 ## Chingchai
 1. 
