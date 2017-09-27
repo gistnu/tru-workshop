@@ -37,27 +37,8 @@ var tam = L.tileLayer.wms("http://cgi.uru.ac.th/gs-gb/ows?", {
 
 var drawnItems = new L.FeatureGroup();
 
-var geojsonFeature = {
-    "type": "Feature",
-    "properties": {
-        "name": "Coors Field",
-        "amenity": "Baseball Stadium",
-        "popupContent": "This is where the Rockies play!"
-    },
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-104.99404, 39.75621]
-    }
-};
-
-console.log(geojsonFeature);
+//console.log(geojsonFeature);
 //var geojsonLayer = new L.GeoJSON.AJAX("geojson.php");
-
-$.get("geojson.php", function (data, status) {
-    console.log(JSON.stringify(data));
-    //alert("Data: " + data + "\nStatus: " + status);
-});
-
 
 // create layer group in control
 var baseMaps = {
@@ -65,14 +46,17 @@ var baseMaps = {
     'Openstreet Black & White': osm_BlackAndWhite,
     'Googlemaps': googlemaps,
 };
-
-var overlayMaps = {
+var overlayMaps = [];
+var lyr = {
     'ขอบเขตจังหวัด': prov,
     'ขอบเขตอำเภอ': amp,
     'ขอบเขตตำบล': tam,
-    'draw': drawnItems
+    //'draw': drawnItems
+    //'geojsonLayer': geojsonLayer
 };
+overlayMaps.push(lyr);
 
+//console.log(overlayMaps);
 //create map
 var map = new L.map('map', {
     center: [18.65, 99.75],
@@ -80,10 +64,28 @@ var map = new L.map('map', {
     layers: [osm_Mapnik, prov, amp, tam, drawnItems]
 });
 
-L.geoJSON(geojson.php).addTo(map);
+L.control.layers(baseMaps, overlayMaps[0]).addTo(map);
 
-L.control.layers(baseMaps, overlayMaps).addTo(map);
+var json = 'http://localhost/tru-workshop/geojson.php';
+$.ajax({
+    type: "POST",
+    url: json,
+    dataType: 'json',
+    success: function (response) {
+        var json = L.geoJson(response).addTo(map);
 
+        var lyr2 = {
+            'ขอบเขตจังหวัด2': L.geoJson(response)
+        };
+
+        overlayMaps.push(lyr2);
+        //map.fitBounds(geojsonLayer.getBounds());
+        //$("#info").fadeOut(500);
+        //var da = 'da';
+    }
+});
+
+console.log(overlayMaps);
 
 var options = {
     position: 'topleft',
