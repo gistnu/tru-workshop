@@ -11,7 +11,7 @@ var osm_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/
 
 var googlemaps = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
     attribution: 'google'
-})
+});
 
 //create overlayers from wms
 var prov = L.tileLayer.wms("http://cgi.uru.ac.th/gs-gb/ows?", {
@@ -37,24 +37,27 @@ var tam = L.tileLayer.wms("http://cgi.uru.ac.th/gs-gb/ows?", {
 
 var drawnItems = new L.FeatureGroup();
 
-//console.log(geojsonFeature);
-//var geojsonLayer = new L.GeoJSON.AJAX("geojson.php");
-
 // create layer group in control
 var baseMaps = {
     'Openstreet map': osm_Mapnik,
     'Openstreet Black & White': osm_BlackAndWhite,
     'Googlemaps': googlemaps,
 };
-var overlayMaps = [];
-var lyr = {
+
+//var da = L.geoJson(response, {});
+var overlayMaps = {
     'ขอบเขตจังหวัด': prov,
     'ขอบเขตอำเภอ': amp,
     'ขอบเขตตำบล': tam,
-    //'draw': drawnItems
-    //'geojsonLayer': geojsonLayer
+    //'ขอบเขตจังหวัด2':lyr
+    'draw': drawnItems
 };
-overlayMaps.push(lyr);
+
+
+
+
+//console.log(da);
+//var geojsonLayer = new L.GeoJSON.AJAX("geojson.php");
 
 //console.log(overlayMaps);
 //create map
@@ -64,26 +67,7 @@ var map = new L.map('map', {
     layers: [osm_Mapnik, prov, amp, tam, drawnItems]
 });
 
-L.control.layers(baseMaps, overlayMaps[0]).addTo(map);
-
-var json = 'http://localhost/tru-workshop/geojson.php';
-$.ajax({
-    type: "POST",
-    url: json,
-    dataType: 'json',
-    success: function (response) {
-        var json = L.geoJson(response).addTo(map);
-
-        var lyr2 = {
-            'ขอบเขตจังหวัด2': L.geoJson(response)
-        };
-
-        overlayMaps.push(lyr2);
-        //map.fitBounds(geojsonLayer.getBounds());
-        //$("#info").fadeOut(500);
-        //var da = 'da';
-    }
-});
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 console.log(overlayMaps);
 
@@ -154,7 +138,6 @@ var getPopupContent = function (layer) {
     return null;
 };
 
-
 // Object created - bind popup to layer, add to feature group
 // map.on(L.Draw.Event.CREATED, function(event) {
 //     var layer = event.layer;
@@ -180,12 +163,10 @@ var getPopupContent = function (layer) {
 map.on('draw:created', function (e) {
     var layers = e.layer;
     drawnItems.addLayer(layers);
-
     var content = getPopupContent(layers);
     layers.bindPopup(content);
 
-    var geom = (JSON.stringify(layers.toGeoJSON().geometry));
-    
+    var geom = (JSON.stringify(layers.toGeoJSON().geometry));    
     $.post("insert.php", {
         name_t: 'test',
         geom: geom
@@ -193,14 +174,42 @@ map.on('draw:created', function (e) {
         console.log(data);
         //alert("Data: " + data + "\nStatus: " + status);
     });
-
 });
 
 map.on('draw:edited', function (e) {
-    var layers = e.layers;
+    console.log(e);
+    //var layers = e.layers;
+    var layers = drawnItems._layers;
     layers.eachLayer(function (layer) {
         console.log(layers);
     });
 });
 
+var features = [];
 
+var lyr;
+var json = 'http://localhost/tru-workshop/geojson.php';
+$.ajax({
+    type: "GET",
+    url: json,
+    dataType: 'json',
+    success: function (response) {
+        //var dat = L.geoJson(response).addTo(map);
+       // console.log(response.features);
+        var lyr = L.geoJson(response);
+        drawnItems.addLayer(lyr);
+        ;
+
+        var lyrs = lyr._layers;
+
+        for (var key in lyrs){
+            features.push(lyrs[key].toGeoJSON())
+        } ;
+        
+        var content = getPopupContent(lyrs);
+        lyr.bindPopup('da');
+
+
+    }
+});
+console.log(features)
