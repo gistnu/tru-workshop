@@ -6,19 +6,15 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 
 pg_connect("host=localhost user=postgres password=1234 dbname=addfeature") or die("Can't Connect Server");
 
-//$postdata = file_get_contents("php://input");
- //   $request = json_decode($postdata);
-
     $name_t = $_POST['name_t'];
     $geom = $_POST['geom'];
 
-    echo $geom;
+    //echo $geom;
 
     $sql = "INSERT INTO feature (name_t,geom) 
 			VALUES ( '$name_t', ST_SetSRID(st_geomfromgeojson('$geom'), 4326))";
-			pg_query($sql);
+    //echo $sql;
+    pg_query($sql);
         
-
-
-//closedb();
+    echo 'insert ok';
 ?>

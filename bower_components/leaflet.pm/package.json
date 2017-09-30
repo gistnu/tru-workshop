@@ -1,0 +1,66 @@
+{
+  "name": "leaflet.pm",
+  "version": "0.20.0",
+  "description": "A Leaflet Plugin For Editing Geometry Layers in Leaflet 1.0",
+  "keywords": [
+    "leaflet",
+    "polygon management",
+    "geometry editing",
+    "map data",
+    "map overlay",
+    "polygon",
+    "geojson",
+    "leaflet-draw",
+    "data-field-geojson",
+    "ui-leaflet-draw"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/leaflet.pm.min.js",
+  "dependencies": {
+    "@turf/difference": "^4.6.0",
+    "@turf/intersect": "^4.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "css-loader": "^0.28.0",
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb-base": "^7.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "leaflet": "^1.2.0",
+    "style-loader": "^0.16.1",
+    "tape": "^4.6.2",
+    "tape-run": "^2.1.4",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1"
+  },
+  "peerDependencies": {
+    "leaflet": "^1.2.0"
+  },
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "./node_modules/.bin/webpack --config=webpack.dev.js",
+    "test": "browserify ./spec/test.spec.js | tape-run",
+    "build": "./node_modules/.bin/webpack --config=webpack.build.js",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeofsumit/leaflet.pm.git"
+  },
+  "author": {
+    "name": "Sumit Kumar",
+    "email": "sk@outlook.com",
+    "url": "http://twitter.com/TweetsOfSumit"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codeofsumit/leaflet.pm/issues"
+  },
+  "homepage": "https://leafletpm.now.sh"
+}

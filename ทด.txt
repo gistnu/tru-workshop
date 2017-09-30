@@ -1,2 +1,0 @@
-bower install leaflet
-bower install leaflet.draw

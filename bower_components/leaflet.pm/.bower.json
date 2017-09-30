@@ -1,0 +1,15 @@
+{
+  "name": "leaflet.pm",
+  "homepage": "https://github.com/codeofsumit/leaflet.pm",
+  "version": "0.20.0",
+  "_release": "0.20.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.20.0",
+    "commit": "b63c809dce2e20b175089f09c7f9658bc9be2501"
+  },
+  "_source": "https://github.com/codeofsumit/leaflet.pm.git",
+  "_target": "^0.20.0",
+  "_originalSource": "leaflet.pm",
+  "_direct": true
+}
