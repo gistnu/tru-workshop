@@ -6,5 +6,19 @@
 4. การทำ buffer ในรูปแบบรัศมีมุมจากจุดปืนใหญ่
 5. การทำ Intersectข้อมูลจุด กับ buffer
 
+## Content 
+### Chingchai
+1. ติดตั้งโปรแกรม
+2. สอน PostGIS
+3. สอน GeoServer and SLD
+
+### Sakda
+1. สอนพื้นฐาน Leaflet
+2. สอน Leaflet.Draw รับส่งข้อมูลเข้า PostGIS
+
+### Teerayoot
+1. ปรับแต่ง UI จาก Leaflet
+2. สร้างโครง Web Interface เพื่อเป็น Demo
+
 ## Software 
 
