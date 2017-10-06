@@ -37,27 +37,56 @@ var map = new L.Map('map', {
     zoom: 8
 });
 
-var polygonLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php?type=polygon",{ 
-    onEachFeature: onEachFeature
-}).addTo(map);
+var  drawnItems = L.featureGroup().addTo(map).bindPopup('tttttt');
 
-var lineLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php?type=polyline",{ 
-    onEachFeature: onEachFeature
-}).addTo(map);
+function onEachFeature(feature, layer) {
+    layer.bindPopup('จังหวัด : '+ feature.properties.typ_n  + '<br>' + 'อำเภอ : '+ feature.properties.desc_t + '<br>' + 'ตำบล : '+ feature.properties.name_t + '<br>' + 'ชื่อหมู่บ้าน : '+ feature.properties.name_house + '<br>' + 'บ้านเลขที่ : '+ feature.properties.no_house +'<br>' + 'หมู่ที่ : '+ feature.properties.moo_house +'<br>' +'รหัสบ้าน : ' + feature.properties.id_house + '<br>' );
+  };
 
-var markerLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php?type=marker",{ 
-    onEachFeature: onEachFeature
-}).addTo(map);
+  var myStyle = {
+    "color": "#ff7800",
+    "weight": 5,
+    "opacity": 0.65
+};
 
-function onEachFeature(feature, layer) {   
-        var popupContent = '<form role="form" id="form" class="form" enctype="multipart/form-data">'+
-            'name: <input type="text" id="name_t" value = "'+feature.properties.name_t+'"><br>'+
-            'desc: <input type="text" id="desc_t" value = "'+feature.properties.desc_t+'"><br>'+
-            'type: <input type="text" id="type_g"  value = "'+feature.properties.type_g+'"><br>'+
-            '<button type="submit">Submit</button>'+
-            '</form>' ;
-          layer.bindPopup(popupContent);
-  };  
+var baseballIcon = L.icon({
+    iconUrl: 'baseball-marker.png',
+    iconSize: [32, 37],
+    iconAnchor: [16, 37],
+    popupAnchor: [0, -28]
+});
+
+var polygonLayer = new L.GeoJSON.AJAX
+("http://localhost/tru-workshop/geojson.php?type=polygon",
+{onEachFeature: onEachFeature}).addTo(map);
+
+var lineLayer = new L.GeoJSON.AJAX
+("http://localhost/tru-workshop/geojson.php?type=polyline",
+{onEachFeature: onEachFeature}).addTo(map);
+
+var pointLayer = new L.GeoJSON.AJAX
+("http://localhost/tru-workshop/geojson.php?type=marker",
+{onEachFeature: onEachFeature}).addTo(map);
+
+var geoJsonLayer = L.geoJson(null, {		
+    pmIgnore: false	
+ });
+
+ geoJsonLayer.addData(polygonLayer);
+ geoJsonLayer.addData(lineLayer);
+ geoJsonLayer.addData(pointLayer);
+
+// var json = 'http://localhost/tru-workshop/geojson.php';
+
+// var jsonAjax = $.ajax({
+//     type: "GET",
+//     url: json,
+//     dataType: 'json',
+//     success: function (response) {
+//         geoJsonLayer.addData(response);
+//         geoJsonLayer.addTo(map);
+//     }
+// });
 
 L.control.layers({
     'osm': osm.addTo(map),
@@ -70,14 +99,15 @@ L.control.layers({
     'ขอบเขตตำบล': tam,
     'polygonLayer': polygonLayer,
     'lineLayer': lineLayer,
-    'markerLayer': markerLayer,
+    'pointLayer': pointLayer,
 }).addTo(map);
 
-var opt1 = {
+var options = {
+    position: 'topleft',
     edit: {
-        featureGroup: polygonLayer,
+        featureGroup: geoJsonLayer,
         poly: {
-            allowIntersection: false,
+            allowIntersection: false
         }
     },
     draw: {
@@ -85,47 +115,13 @@ var opt1 = {
             allowIntersection: false,
             showArea: true
         },
+        circle: false,
         rectangle:false,
-        polyline:false,
-        circle:false,
-        marker:false,        
         circlemarker:false
     }
-}
+};
 
-var opt2 = {
-    edit: {
-        featureGroup: lineLayer,        
-    },
-    draw: {
-        polygon:false,
-        rectangle:false,
-        polyline:{
-            allowIntersection: false
-        },
-        circle:false,
-        marker:false,        
-        circlemarker:false
-    }
-}
-
-var opt3 = {
-    edit: {
-        featureGroup: markerLayer,        
-    },
-    draw: {
-        polygon:false,
-        rectangle:false,
-        polyline:false,
-        circle:false,
-        marker:true,        
-        circlemarker:false
-    }
-}
-
-map.addControl(new L.Control.Draw(opt1));
-map.addControl(new L.Control.Draw(opt2));
-map.addControl(new L.Control.Draw(opt3));
+map.addControl(new L.Control.Draw(options));
 
 //map.on(L.Draw.Event.CREATED, function (e) {
 map.on('draw:created', function (e) {
@@ -151,9 +147,10 @@ map.on('draw:created', function (e) {
         console.log(data);
         polygonLayer.refresh();
         lineLayer.refresh();
-        markerLayer.refresh();
+        pointLayer.refresh();
     });
 
+    console.log(e);
 });
 
 map.on('draw:edited', function (e) {
