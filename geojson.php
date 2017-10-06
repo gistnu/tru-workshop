@@ -19,7 +19,6 @@ FROM (
   ) AS feature
   FROM (SELECT * FROM feature) row) features;";
 
-
 $sql1 = 'select * from feature';
 
    $res = pg_query($sql);
@@ -27,5 +26,6 @@ $sql1 = 'select * from feature';
    while ($row = pg_fetch_row($res)) {
     echo $row[0];
   }
+
 
 ?>

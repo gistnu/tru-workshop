@@ -28,27 +28,34 @@ var tam = L.tileLayer.wms("http://cgi.uru.ac.th/gs-gb/ows?", {
 });
 
 //create geoJsonLayer
-var geoJsonLayer = L.geoJson(null, {
-    pmIgnore: false
-});
+// var geoJsonLayer = L.geoJson(null, {
+//     pmIgnore: false
+// });
 
 var map = new L.Map('map', {
     center: new L.LatLng(18.65, 99.75),
     zoom: 8
 });
 
-var drawnItems = L.featureGroup().addTo(map);
+function onEachFeature(feature, layer) {
+    layer.bindPopup('จังหวัด : '+ feature.properties.typ_n  + '<br>' + 'อำเภอ : '+ feature.properties.desc_t + '<br>' + 'ตำบล : '+ feature.properties.name_t + '<br>' + 'ชื่อหมู่บ้าน : '+ feature.properties.name_house + '<br>' + 'บ้านเลขที่ : '+ feature.properties.no_house +'<br>' + 'หมู่ที่ : '+ feature.properties.moo_house +'<br>' +'รหัสบ้าน : ' + feature.properties.id_house + '<br>' );
+  };
 
-var json = 'http://localhost/tru-workshop/geojson.php';
-$.ajax({
-    type: "GET",
-    url: json,
-    dataType: 'json',
-    success: function (response) {
-        geoJsonLayer.addData(response);
-        geoJsonLayer.addTo(map);
-    }
-});
+var geoJsonLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php",{onEachFeature: onEachFeature}).addTo(map);
+
+
+
+// var json = 'http://localhost/tru-workshop/geojson.php';
+
+// var jsonAjax = $.ajax({
+//     type: "GET",
+//     url: json,
+//     dataType: 'json',
+//     success: function (response) {
+//         geoJsonLayer.addData(response);
+//         geoJsonLayer.addTo(map);
+//     }
+// });
 
 L.control.layers({
     'osm': osm.addTo(map),
@@ -61,7 +68,6 @@ L.control.layers({
     'ขอบเขตตำบล': tam,
     'drawlayer': geoJsonLayer
 }).addTo(map);
-
 
 var options = {
 	position: 'topleft',
@@ -116,23 +122,6 @@ var options2 = {
     }
 };
 
-var drawControlFull = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems
-    },
-    draw: {
-        polyline: false
-    }
-});
-
-
-var drawControlEditOnly = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems
-    },
-    draw: false
-});
-
 map.addControl(new L.Control.Draw(options2));
 
 //map.on(L.Draw.Event.CREATED, function (e) {
@@ -146,14 +135,25 @@ map.on('draw:created', function (e) {
         currentdate.getSeconds();
 
     var layers = e.layer;
-    drawnItems.addLayer(layers);
+    
+
     var geom = (JSON.stringify(layers.toGeoJSON().geometry));
     console.log(layers);
+
+    layers.bindPopup(
+        '<form action="">'+
+        'First name: <input type="text" name="FirstName" value="Mickey"><br>'+
+        'Last name: <input type="text" name="LastName" value="Mouse"><br>'+
+        '<input type="submit" value="Submit">'+
+        '</form>'
+    );
+
     $.post("insert.php", {
         name_t: datetime,
         geom: geom
     }, function (data, status) {
         console.log(data);
+        geoJsonLayer.refresh();
     });
 
     // ตรงนี้ติดไว้ก่อน

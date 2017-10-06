@@ -1,0 +1,15 @@
+{
+  "name": "openlayers",
+  "homepage": "https://github.com/openlayers/openlayers",
+  "version": "4.3.4",
+  "_release": "4.3.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.3.4",
+    "commit": "d585fcd4365f4bbcd924104159ad3edc793cf17f"
+  },
+  "_source": "https://github.com/openlayers/openlayers.git",
+  "_target": "^4.3.4",
+  "_originalSource": "openlayers",
+  "_direct": true
+}
