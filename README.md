@@ -21,4 +21,7 @@
 2. สร้างโครง Web Interface เพื่อเป็น Demo
 
 ## Software 
-
+1. PostgreSQL/PostGIS
+2. GeoServer
+3. QGIS
+4. Apache2 Web Server
