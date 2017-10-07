@@ -204,3 +204,27 @@ layers.eachLayer(function (layer) {
     });
 });
 });
+
+
+
+function onClick_home () {
+    map.setView([51.5, -0.09], 14);
+};
+
+
+var polylineDrawer = new L.Draw.Polyline(map, this.opt2.polyline);
+
+var polygonDrawer = new L.Draw.Polygon(map, this.opt1.polygon);
+
+var markerDrawer =  new L.Draw.Marker(map, this.opt3.marker);
+
+
+$('#draw_line').click(function() {
+    polylineDrawer.enable();
+});
+$('#draw_polygon').click(function() {
+    polygonDrawer.enable();
+});
+$('#draw_marker').click(function() {
+    markerDrawer.enable();
+});
