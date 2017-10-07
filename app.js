@@ -53,15 +53,15 @@ onEachFeature: onEachFeature
 }).addTo(map);
 
 function onEachFeature(feature, layer) {
-var popupContent = '<form role="form" id="form" class="form-control" enctype="multipart/form-data">' +
-    'name: <input class="form-control" type="text" id="name_t" value = "' + feature.properties.name_t + '" disabled><br>' +
-    'desc: <input class="form-control" type="text" id="desc_t" value = "' + feature.properties.desc_t + '"><br>' +
-    'type: <input class="form-control" type="text" id="type_g"  value = "' + feature.properties.type_g + '" disabled><br>' +
-    '<button type="button" onclick="test()">Submit</button>' +
-    //'<button type="button" onclick="test('aa','+ feature.properties.desc_t+', '+feature.properties.type_g+')">Submit</button>'+
-    '</form>';
+var popupContent = '<form role="form" id="form" class="form-horizontal" enctype="multipart/form-data">'+
+            'name: <input type="text" class="form-control" id="name_t" name="name_t" value = "'+feature.properties.name_t+'" disabled ><br>'+
+            'desc: <input type="text" class="form-control" id="desc_t" name="desc_t" value = "'+feature.properties.desc_t+'"><br>'+
+            'type: <input type="text" class="form-control" id="type_g"  name="type_g" value = "'+feature.properties.type_g+'"><br>'+
+            '<button type="button" class="btn btn-success" onclick="test()">Submit</button>'+
+            '</form>' ;
+
 var widthPop = {
-    minWidth: 400
+    minWidth: '400'
 };
 layer.bindPopup(popupContent, widthPop);
 };
