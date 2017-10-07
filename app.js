@@ -56,7 +56,7 @@ function onEachFeature(feature, layer) {
 var popupContent = '<form role="form" id="form" class="form-horizontal" enctype="multipart/form-data">'+
             'name: <input type="text" class="form-control" id="name_t" name="name_t" value = "'+feature.properties.name_t+'" disabled ><br>'+
             'desc: <input type="text" class="form-control" id="desc_t" name="desc_t" value = "'+feature.properties.desc_t+'"><br>'+
-            'type: <input type="text" class="form-control" id="type_g"  name="type_g" value = "'+feature.properties.type_g+'"><br>'+
+            'type: <input type="text" class="form-control" id="type_g"  name="type_g" value = "'+feature.properties.type_g+'" disabled><br>'+
             '<button type="button" class="btn btn-success" onclick="test()">Submit</button>'+
             '</form>' ;
 
