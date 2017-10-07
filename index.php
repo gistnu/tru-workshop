@@ -118,7 +118,10 @@
 
     <div class="content-wrapper">
         <div class="container">
-            <div class="row">
+
+
+
+            <div class="row ">
 
                 <div class="col-md-3  col-sm-3">
                     <ul class="nav nav-tabs">
@@ -155,8 +158,7 @@
                             <div id="external_control"></div>
                         </div>
                         <div id="menu2" class="tab-pane fade">
-                            <h3>Menu 2</h3>
-                            <p>Some content in menu 2.</p>
+                           
                         </div>
                     </div>
 

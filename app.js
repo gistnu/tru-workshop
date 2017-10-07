@@ -48,9 +48,22 @@ onEachFeature: onEachFeature,
 style: lineStyle
 }).addTo(map);
 
-var markerLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php?type=marker", {
-onEachFeature: onEachFeature
-}).addTo(map);
+
+    var icon = L.icon({
+        iconUrl: 'http://icons.iconarchive.com/icons/icons8/christmas-flat-color/128/star-icon.png',
+        iconSize: [32, 37],
+        iconAnchor: [16, 37],
+        popupAnchor: [0, -28]
+    });
+
+    var markerLayer = new L.GeoJSON.AJAX("http://localhost/tru-workshop/geojson.php?type=marker", {
+
+        pointToLayer: function (feature, latlng) {
+            return L.marker(latlng, {icon: icon});
+        },onEachFeature: onEachFeature
+    }).addTo(map);
+
+  
 
 function onEachFeature(feature, layer) {
 var popupContent = '<form role="form" id="form" class="form-horizontal" enctype="multipart/form-data">'+
@@ -218,6 +231,8 @@ var polygonDrawer = new L.Draw.Polygon(map, this.opt1.polygon);
 
 var markerDrawer =  new L.Draw.Marker(map, this.opt3.marker);
 
+var edit_lines =  new L.Draw.Polyline(map, this.opt2.edit.featureGroup);
+
 
 $('#draw_line').click(function() {
     polylineDrawer.enable();
@@ -227,4 +242,7 @@ $('#draw_polygon').click(function() {
 });
 $('#draw_marker').click(function() {
     markerDrawer.enable();
+});
+$('#edit_line').click(function() {
+    edit_lines.enable();
 });
