@@ -1,6 +1,14 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
+<?php
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+pg_connect("host=localhost user=postgres password=1234 dbname=addfeature") or die("Can't Connect Server");
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -125,40 +133,35 @@
 
                 <div class="col-md-3  col-sm-3">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#home">Details</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Legend</a></li>
-                        <li><a data-toggle="tab" href="#menu2">Tools</a></li>
+                        <li class="active"><a data-toggle="tab" href="#home">ADD</a></li>
+                        <li><a data-toggle="tab" href="#menu2">LAYER</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="home" class="tab-pane fade in active"><br>
-                            
+                            <form action="">
                                 <fieldset>
                                     <legend>ADD DATA NOW</legend>
                                     <div class="form-group">
-                                        <button type="button"  class="btn btn-block" id="draw_line" >polyline</button>
+                                        <button type="button"  class="btn btn-block btn-success" id="draw_line" >polyline</button>
                                     </div>
                                     <div class="form-group">
-                                        <button type="button"  class="btn btn-block" id="draw_polygon" >polygon</button>
+                                        <button type="button"  class="btn btn-block btn-success" id="draw_polygon" >polygon</button>
                                     </div>
                                     <div class="form-group">
-                                        <button type="button"  class="btn btn-block" id="draw_marker" >marker</button>
+                                        <button type="button"  class="btn btn-block btn-success" id="draw_marker" >marker</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button"  class="btn btn-block btn-success" onclick="onClick_home()"><i class="fa fa-home"></i> back to home</button>
                                     </div>
                                     
-                                    <hr>
-                                    <div class="form-group">
-                                        <button type="button"  class="btn btn-block" id="edit_line" >edit</button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button"  class="btn btn-block" id="draw_delete" >delete</button>
-                                    </div>
                                 </fieldset>
-                            
+                            </form>
                         </div>
-                        <div id="menu1" class="tab-pane fade">
-                            <div id="external_control"></div>
-                        </div>
-                        <div id="menu2" class="tab-pane fade">
-                           
+                        <div id="menu2" class="tab-pane fade"><hr>   
+                            <button class="btn btn-block btn-info" id="prov_show" href="#">ขอบเขตจังหวัด</button>
+                            <button class="btn btn-block btn-info" id="line_show" href="#">ข้อมูลแบบเส้น</button>
+                            <button class="btn btn-block btn-info" id="marker_show" href="#">ข้อมูลแบบจุด</button>
+                            <button class="btn btn-block btn-info" id="polygon_show" href="#">ข้อมูลแบบรูปหลายเหลี่ยม</button>
                         </div>
                     </div>
 

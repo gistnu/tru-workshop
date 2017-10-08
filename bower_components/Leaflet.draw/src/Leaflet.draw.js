@@ -119,22 +119,22 @@ L.drawLocal = {
 			},
 			marker: {
 				tooltip: {
-					start: 'Click map to place marker.'
+					start: 'กดที่แผนที่เพื่อสร้างหมุด'
 				}
 			},
 			polygon: {
 				tooltip: {
-					start: 'Click to start drawing shape.',
-					cont: 'Click to continue drawing shape.',
-					end: 'Click first point to close this shape.'
+					start: 'กดที่แผนที่เพื่อเริ่มวาดข้อมูลแบบพื้นที่',
+					cont: 'กดที่แผนที่เพื่อเริ่มวาดข้อมูลแบบพื้นที่',
+					end: 'กดที่จุดเริ่มต้นเพื่อสิ้นสุดการวาด'
 				}
 			},
 			polyline: {
 				error: '<strong>Error:</strong> shape edges cannot cross!',
 				tooltip: {
-					start: 'Click to start drawing line.',
-					cont: 'Click to continue drawing line.',
-					end: 'Click last point to finish line.'
+					start: 'กดที่แผนที่เพื่อเริ่มวาดข้อมูลแบบเส้น',
+					cont: 'กดที่แผนที่เพื่อเริ่มวาดข้อมูลแบบเส้น',
+					end: 'กดที่จุดสุดท้ายเพื่อสิ้นสุดการวาด หรือกดปุ่ม ESC'
 				}
 			},
 			rectangle: {
