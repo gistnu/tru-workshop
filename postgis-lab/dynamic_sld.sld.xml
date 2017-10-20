@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor xmlns="http://www.opengis.net/sld" xmlns:sld="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml" version="1.0.0">
+    <NamedLayer>
+        <Name>Dynamic CWR</Name>
+        <UserStyle>
+            <Title>Dynamic CWR</Title>
+            <Abstract>Dynamic CWR for ALR Project</Abstract>
+            <FeatureTypeStyle>
+                <Rule>
+                    <Name>class 1 </Name>
+                    <Title>class 1</Title>
+                    <ogc:Filter>
+                        <ogc:PropertyIsLessThan>
+                            <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                            <ogc:Function name="env">
+                                <ogc:Literal>a</ogc:Literal>
+                                <ogc:Literal>1</ogc:Literal>
+                            </ogc:Function>
+                        </ogc:PropertyIsLessThan>
+                    </ogc:Filter>
+                    <PolygonSymbolizer>
+                        <Fill>
+                            <CssParameter name="fill">#f7fbff</CssParameter>
+                        </Fill>
+                    </PolygonSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class 2</Name>
+                    <Title>class 2</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>a</ogc:Literal>
+                                    <ogc:Literal>1</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>b</ogc:Literal>
+                                    <ogc:Literal>5</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PolygonSymbolizer>
+                        <Fill>
+                            <CssParameter name="fill">#c8ddf0</CssParameter>
+                        </Fill>
+                    </PolygonSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class 3</Name>
+                    <Title>class 3</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>b</ogc:Literal>
+                                    <ogc:Literal>5</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>c</ogc:Literal>
+                                    <ogc:Literal>10</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PolygonSymbolizer>
+                        <Fill>
+                            <CssParameter name="fill">#73b3d8</CssParameter>
+                        </Fill>
+                    </PolygonSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class 4</Name>
+                    <Title>class 4</Title>
+                    <ogc:Filter>
+                        <ogc:And>
+                            <ogc:PropertyIsGreaterThanOrEqualTo>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>c</ogc:Literal>
+                                    <ogc:Literal>10</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsGreaterThanOrEqualTo>
+                            <ogc:PropertyIsLessThan>
+                                <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                                <ogc:Function name="env">
+                                    <ogc:Literal>d</ogc:Literal>
+                                    <ogc:Literal>15</ogc:Literal>
+                                </ogc:Function>
+                            </ogc:PropertyIsLessThan>
+                        </ogc:And>
+                    </ogc:Filter>
+                    <PolygonSymbolizer>
+                        <Fill>
+                            <CssParameter name="fill">#2879b9</CssParameter>
+                        </Fill>
+                    </PolygonSymbolizer>
+                </Rule>
+                <Rule>
+                    <Name>class 5</Name>
+                    <Title>class 5</Title>
+                    <ogc:Filter>
+                        <ogc:PropertyIsGreaterThan>
+                            <ogc:PropertyName>cwr_total</ogc:PropertyName>
+                            <ogc:Function name="env">
+                                <ogc:Literal>d</ogc:Literal>
+                                <ogc:Literal>15</ogc:Literal>
+                            </ogc:Function>
+                        </ogc:PropertyIsGreaterThan>
+                    </ogc:Filter>
+                    <PolygonSymbolizer>
+                        <Fill>
+                            <CssParameter name="fill">#08306b</CssParameter>
+                        </Fill>
+                    </PolygonSymbolizer>
+                </Rule>
+            </FeatureTypeStyle>
+        </UserStyle>
+    </NamedLayer>
+</StyledLayerDescriptor>
